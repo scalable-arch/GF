@@ -1,7 +1,8 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <cassert>
+#include <cstdio>
+#include <iostream>
 
 typedef unsigned long long      gf_binary;
 typedef unsigned long long      gf_index;
@@ -54,11 +55,13 @@ public:
                 }
             }
             if (result==0) {
-                printf("Found!: %#6llx\n", a);
+                //printf("Found!: %#6llx\n", a);
+                std::cout << "Found!: %#6llx" << a << std::endl;
             }
             if ((a%1000000)==999999)
             {
-                printf("Processing %lld\n", a);
+                //printf("Processing %lld\n", a);
+                std::cout << "Processing %lld" << a << std::endl;
             }
         }
     }
@@ -112,7 +115,7 @@ public:
     {
         printf("GF(%llu) with ", size);
         for (unsigned long long i=63; i>0; i--)
-
+        {
             if (primitive_poly&(1ull<<i)) {
                 printf("x^%lld+", i);
             }
