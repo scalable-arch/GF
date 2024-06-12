@@ -25,6 +25,7 @@ public:
     ~GF() {}
 
     unsigned long long getSize() { return size; }
+    int getDegree() { return degree; }
 
     gf_binary add(gf_binary a, gf_binary b)
     {
@@ -33,6 +34,7 @@ public:
 
     virtual gf_binary mul(gf_binary a, gf_binary b) = 0;
     virtual gf_binary div(gf_binary a, gf_binary b) = 0;
+    virtual gf_binary get_binary(gf_index i) = 0;
     virtual void print() = 0;
 
     gf_binary pow(gf_binary a, int p)
@@ -109,6 +111,11 @@ public:
             return 0;
         }
         return exp_table[(log_table[a]-log_table[b])%(size-1)];
+    }
+
+    gf_binary get_binary(gf_index i)
+    {
+        return exp_table[i];
     }
 
     void print()
@@ -268,7 +275,7 @@ int main() {
     //GF *gf = new GF(0xb);     // x^3+x^1+1
 
     // Degree 4
-    GF *gf = new GFSmall(0x13);    // x^4+x^1+1
+    //GF *gf = new GFSmall(0x13);    // x^4+x^1+1
 
     // Degree 6
     //GF *gf2 = new GF(0x43);    // x^6+x^1+1
@@ -283,6 +290,22 @@ int main() {
     //GF *gf2 = new GF(0x165);   // x^8+x^6+x^5+x^2+1   --> Found D4
     //GF *gf2 = new GF(0x169);   // x^8+x^6+x^5+x^3+1   --> Found D4
     //GF *gf2 = new GF(0x1E7);   // x^8+x^7+x^6+x^5+x^2+x^1+1   --> Found D4
+
+    // Degree 11
+    //GF *gf = new GFSmall(0x805);    // x^11+x^2+1
+    GF *gf = new GFSmall(0x82b);    //x^11+x^5+x^3+x^1+1
+    //x^11+x^5+x^3+x^2+1
+    //x^11+x^6+x^5+x^1+1
+    //x^11+x^7+x^3+x^2+1
+    //x^11+x^8+x^5+x^2+1
+    //x^11+x^8+x^6+x^5+x^4+x^1+1
+    //x^11+x^8+x^6+x^5+x^4+x^3+x^2+x^1+1
+    //x^11+x^9+x^4+x^1+1
+    //x^11+x^9+x^8+x^7+x^4+x^1+1
+    //x^11+x^10+x^3+x^2+1
+    //x^11+x^10+x^7+x^4+x^3+x^1+1
+    //x^11+x^10+x^8+x^7+x^5+x^4+x^3+x^1+1
+    //x^11+x^10+x^9+x^8+x^3+x^1+1
 
     // Degree 12
     //GF *gf = new GF(0x1053);    // x^12+x^6+x^4+x^1+1 --> Found D4
@@ -381,6 +404,52 @@ int main() {
 
     gf->print();
 
+
+    int cnt_per_bit[64] = {0};
+
+    for (gf_index i=0; i<gf->getSize(); i+=7)
+    {
+        gf_binary binary = gf->get_binary(i);;
+        printf("a^%-3lld ", i);
+
+        for (int i=gf->getDegree()-1; i>=0; i--)
+        {
+            if ((binary>>i)&1) {
+                printf("1");
+                cnt_per_bit[i]++;
+            }
+            else
+            {
+                printf("0");
+            }
+            if (((i%4)==0) && (i!=0)) {
+                printf("_");
+            }
+        }
+        printf("\n");
+    }
+
+    for (int i=gf->getDegree()-1; i>=0; i--)
+    {
+        printf("%10d ", cnt_per_bit[i]);
+    }
+    printf("\n");
+
+    for (int i=gf->getDegree()-1; i>=0; i--)
+    {
+        if ((cnt_per_bit[i]%2)==1) {
+            printf("1");
+        }
+        else
+        {
+            printf("0");
+        }
+        if (((i%4)==0) && (i!=0)) {
+            printf("_");
+        }
+    }
+    printf("\n");
+/*
     gf_binary received[8];
     gf_binary syndrome[2];
 
@@ -411,6 +480,7 @@ int main() {
             printf("- %x @%d -> %llx %llx -> %lld\n", error, pos, syndrome[0], syndrome[1], cpos);
         }
     }
+    */
     /*
     for (int x = 0; x<gf->getSize(); x++)
     {
