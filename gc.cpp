@@ -272,82 +272,82 @@ int main() {
     // https://www.partow.net/programming/polynomials/index.html
 
     // Degree 2
-    //GF *gf = new GF(0x7);     // x^2+x^1+1
+    //GF *gf = new GFSmall(0x7);     // x^2+x^1+1
 
     // Degree 3
-    //GF *gf = new GF(0xb);     // x^3+x^1+1
+    //GF *gf = new GFSmall(0xb);      // x^3+x^1+1
 
     // Degree 4
-    //GF *gf = new GFSmall(0x13);    // x^4+x^1+1
+    //GF *gf = new GFSmall(0x13);     // x^4+x^1+1
 
     // Degree 6
-    //GF *gf2 = new GF(0x43);    // x^6+x^1+1
-    //GF *gf = new GF(0x67);    // x^6+x^5+x^2+x^1+1
-    //GF *gf = new GF(0x6D);    // x^6+x^5+x^3+x^2+1
+    //GF *gf = new GFSmall(0x43);     // x^6+x^1+1
+    //GF *gf = new GFSmall(0x67);     // x^6+x^5+x^2+x^1+1
+    //GF *gf = new GFSmall(0x6D);     // x^6+x^5+x^3+x^2+1
 
     // Degree 8
-    //GF *gf = new GFSmall(0x11D);   // x^8+x^4+x^3+x^2+1   --> Found D4
-    //GF *gf2 = new GF(0x12B);   // x^8+x^5+x^3+x^1+1   --> Found D4
-    //GF *gf2 = new GF(0x15F);   // x^8+x^6+x^4+x^3+x^2+x^1+1   --> Found D4
-    //GF *gf2 = new GF(0x163);   // x^8+x^6+x^5+x^1+1   --> Found D4
-    //GF *gf2 = new GF(0x165);   // x^8+x^6+x^5+x^2+1   --> Found D4
-    //GF *gf2 = new GF(0x169);   // x^8+x^6+x^5+x^3+1   --> Found D4
-    //GF *gf2 = new GF(0x1E7);   // x^8+x^7+x^6+x^5+x^2+x^1+1   --> Found D4
+    //GF *gf = new GFSmall(0x11D);    // x^8+x^4+x^3+x^2+1   --> Found D4
+    //GF *gf = new GFSmall(0x12B);    // x^8+x^5+x^3+x^1+1   --> Found D4
+    //GF *gf = new GFSmall(0x15F);    // x^8+x^6+x^4+x^3+x^2+x^1+1   --> Found D4
+    //GF *gf = new GFSmall(0x163);    // x^8+x^6+x^5+x^1+1   --> Found D4
+    //GF *gf = new GFSmall(0x165);    // x^8+x^6+x^5+x^2+1   --> Found D4
+    //GF *gf = new GFSmall(0x169);    // x^8+x^6+x^5+x^3+1   --> Found D4
+    //GF *gf = new GFSmall(0x1E7);    // x^8+x^7+x^6+x^5+x^2+x^1+1   --> Found D4
 
     // Degree 11
-    GF *gf = new GFSmall(0x805);    // x^11+x^2+1
-    //GF *gf = new GFSmall(0x82b);    //x^11+x^5+x^3+x^1+1
-    //x^11+x^5+x^3+x^2+1
-    //x^11+x^6+x^5+x^1+1
-    //x^11+x^7+x^3+x^2+1
-    //x^11+x^8+x^5+x^2+1
-    //x^11+x^8+x^6+x^5+x^4+x^1+1
-    //x^11+x^8+x^6+x^5+x^4+x^3+x^2+x^1+1
-    //x^11+x^9+x^4+x^1+1
-    //x^11+x^9+x^8+x^7+x^4+x^1+1
-    //x^11+x^10+x^3+x^2+1
-    //x^11+x^10+x^7+x^4+x^3+x^1+1
-    //x^11+x^10+x^8+x^7+x^5+x^4+x^3+x^1+1
-    //x^11+x^10+x^9+x^8+x^3+x^1+1
+    //GF *gf = new GFSmall(0x805);    // x^11+x^2+1
+    //GF *gf = new GFSmall(0x82b);    // x^11+x^5+x^3+x^1+1
+    //GF *gf = new GFSmall(0x82d);    // x^11+x^5+x^3+x^2+1
+    //GF *gf = new GFSmall(0x863);    // x^11+x^6+x^5+x^1+1
+    //GF *gf = new GFSmall(0x88d);    //x^11+x^7+x^3+x^2+1
+    //GF *gf = new GFSmall(0x925);    //x^11+x^8+x^5+x^2+1
+    //GF *gf = new GFSmall(0x973);    //x^11+x^8+x^6+x^5+x^4+x^1+1
+    //GF *gf = new GFSmall(0x97F);    //x^11+x^8+x^6+x^5+x^4+x^3+x^2+x^1+1
+    //GF *gf = new GFSmall(0xA13);    //x^11+x^9+x^4+x^1+1
+    //GF *gf = new GFSmall(0xB93);    //x^11+x^9+x^8+x^7+x^4+x^1+1
+    //GF *gf = new GFSmall(0xC0D);    //x^11+x^10+x^3+x^2+1
+    //GF *gf = new GFSmall(0xC9B);    //x^11+x^10+x^7+x^4+x^3+x^1+1
+    //GF *gf = new GFSmall(0xDBB);    //x^11+x^10+x^8+x^7+x^5+x^4+x^3+x^1+1
+    //GF *gf = new GFSmall(0xF0B);    //x^11+x^10+x^9+x^8+x^3+x^1+1
 
     // Degree 12
-    //GF *gf = new GF(0x1053);    // x^12+x^6+x^4+x^1+1 --> Found D4
-    //GF *gf = new GF(0x120D);    // x^12+x^9+x^3+x^2+1
-    //GF *gf = new GF(0x130F);    // x^12+x^9+x^8+x^3+x^2+x^1+1
-    //GF *gf = new GF(0x1745);    // x^12+x^10+x^9+x^8+x^6+x^2+1
-    //GF *gf = new GF(0x1775);    // x^12+x^10+x^9+x^8+x^6+x^5+x^4+x^2+1
-    //GF *gf = new GF(0x1857);    // x^12+x^11+x^6+x^4+x^2+x^1+1
-    //GF *gf = new GF(0x1A2B);    // x^12+x^11+x^9+x^5+x^3+x^1+1
-    //GF *gf = new GF(0x1AD1);    // x^12+x^11+x^9+x^7+x^6+x^4+1
-    //GF *gf = new GF(0x1AE1);    // x^12+x^11+x^9+x^7+x^6+x^5+1
-    //GF *gf = new GF(0x1B91);    // x^12+x^11+x^9+x^8+x^7+x^4+1
-    //GF *gf = new GF(0x1BA7);    // x^12+x^11+x^9+x^8+x^7+x^5+x^2+x^1+1
-    //GF *gf = new GF(0x1C27);    // x^12+x^11+x^10+x^5+x^2+x^1+1
-    //GF *gf = new GF(0x1D5B);    // x^12+x^11+x^10+x^8+x^6+x^4+x^3+x^1+1
-    //GF *gf = new GF(0x1FBB);    // x^12+x^11+x^10+x^9+x^8+x^7+x^5+x^4+x^3+x^1+1
+    //GF *gf = new GFSmall(0x1053);   // x^12+x^6+x^4+x^1+1
+    //GF *gf = new GFSmall(0x120D);   // x^12+x^9+x^3+x^2+1
+    //GF *gf = new GFSmall(0x130F);   // x^12+x^9+x^8+x^3+x^2+x^1+1
+    //GF *gf = new GFSmall(0x1745);   // x^12+x^10+x^9+x^8+x^6+x^2+1
+    //GF *gf = new GFSmall(0x1775);   // x^12+x^10+x^9+x^8+x^6+x^5+x^4+x^2+1
+    //GF *gf = new GFSmall(0x1857);   // x^12+x^11+x^6+x^4+x^2+x^1+1
+    //GF *gf = new GFSmall(0x1A2B);   // x^12+x^11+x^9+x^5+x^3+x^1+1
+    //GF *gf = new GFSmall(0x1AD1);   // x^12+x^11+x^9+x^7+x^6+x^4+1
+    //GF *gf = new GFSmall(0x1AE1);   // x^12+x^11+x^9+x^7+x^6+x^5+1
+    //GF *gf = new GFSmall(0x1B91);   // x^12+x^11+x^9+x^8+x^7+x^4+1
+    //GF *gf = new GFSmall(0x1BA7);   // x^12+x^11+x^9+x^8+x^7+x^5+x^2+x^1+1
+    //GF *gf = new GFSmall(0x1C27);   // x^12+x^11+x^10+x^5+x^2+x^1+1
+    //GF *gf = new GFSmall(0x1D5B);   // x^12+x^11+x^10+x^8+x^6+x^4+x^3+x^1+1
+    //GF *gf = new GFSmall(0x1FBB);   // x^12+x^11+x^10+x^9+x^8+x^7+x^5+x^4+x^3+x^1+1
 
     // Degree 13
-    //GF *gf = new GF(0x201B);    // x^13+x^4+x^3+x^1+1
-    //GF *gf = new GF(0x22BF);    // x^13+x^9+x^7+x^5+x^4+x^3+x^2+x^1+1
-    //GF *gf = new GF(0x23A3);    // x^13+x^9+x^8+x^7+x^5+x^1+1
-    //GF *gf = new GF(0x26B1);    // x^13+x^10+x^9+x^7+x^5+x^4+1
-    //GF *gf = new GF(0x274F);    // x^13+x^10+x^9+x^8+x^6+x^3+x^2+x^1+1
-//x^13+x^11+x^8+x^7+x^4+x^1+1
-//x^13+x^11+x^10+x^9+x^8+x^7+x^6+x^5+x^4+x^3+x^2+x^1+1
-//x^13+x^12+x^6+x^5+x^4+x^3+1
-//x^13+x^12+x^8+x^7+x^6+x^5+1
-//x^13+x^12+x^9+x^8+x^4+x^2+1
-//x^13+x^12+x^10+x^8+x^6+x^4+x^3+x^2+1
-//x^13+x^12+x^11+x^5+x^2+x^1+1
-//x^13+x^12+x^11+x^8+x^7+x^6+x^4+x^1+1
-//x^13+x^12+x^11+x^9+x^5+x^3+1
+    //GF *gf = new GFSmall(0x201B);   // x^13+x^4+x^3+x^1+1
+    //GF *gf = new GFSmall(0x22BF);   // x^13+x^9+x^7+x^5+x^4+x^3+x^2+x^1+1
+    //GF *gf = new GFSmall(0x23A3);   // x^13+x^9+x^8+x^7+x^5+x^1+1
+    //GF *gf = new GFSmall(0x26B1);   // x^13+x^10+x^9+x^7+x^5+x^4+1
+    //GF *gf = new GFSmall(0x274F);   // x^13+x^10+x^9+x^8+x^6+x^3+x^2+x^1+1
+    //GF *gf = new GFSmall(0x2993);   //x^13+x^11+x^8+x^7+x^4+x^1+1
+    //GF *gf = new GFSmall(0x2FFF);   //x^13+x^11+x^10+x^9+x^8+x^7+x^6+x^5+x^4+x^3+x^2+x^1+1
+    //GF *gf = new GFSmall(0x3079);   //x^13+x^12+x^6+x^5+x^4+x^3+1
+    //GF *gf = new GFSmall(0x31E1);   //x^13+x^12+x^8+x^7+x^6+x^5+1
+    //GF *gf = new GFSmall(0x3315);   //x^13+x^12+x^9+x^8+x^4+x^2+1
+    //GF *gf = new GFSmall(0x355D);   //x^13+x^12+x^10+x^8+x^6+x^4+x^3+x^2+1
+    //GF *gf = new GFSmall(0x3827);   //x^13+x^12+x^11+x^5+x^2+x^1+1
+    //GF *gf = new GFSmall(0x39D3);   //x^13+x^12+x^11+x^8+x^7+x^6+x^4+x^1+1
+    //GF *gf = new GFSmall(0x3A29);   //x^13+x^12+x^11+x^9+x^5+x^3+1
 
     // Degree 14
-    //GF *gf = new GF(0x4143);    // x^14+x^8+x^6+x^1+1
-    //GF *gf = new GF(0x4443);    // x^14+x^10+x^6+x^1+1
-    //GF *gf = new GF(0x46DB);    // x^14+x^10+x^9+x^7+x^6+x^4+x^3+x^1+1
-    //GF *gf = new GF(0x4843);    // x^14+x^11+x^6+x^1+1
-    //GF *gf = new GF(0x4A65);    // x^14+x^11+x^9+x^6+x^5+x^2+1
+    //GF *gf = new GFSmall(0x4143);   // x^14+x^8+x^6+x^1+1
+    //GF *gf = new GFSmall(0x4443);   // x^14+x^10+x^6+x^1+1
+    //GF *gf = new GFSmall(0x46DB);   // x^14+x^10+x^9+x^7+x^6+x^4+x^3+x^1+1
+    //GF *gf = new GFSmall(0x4843);   // x^14+x^11+x^6+x^1+1
+    //GF *gf = new GFSmall(0x4A65);   // x^14+x^11+x^9+x^6+x^5+x^2+1
 // x^14+x^12+x^9+x^8+x^7+x^6+x^5+x^4+1
 // x^14+x^12+x^11+x^9+x^8+x^7+x^6+x^5+x^3+x^1+1
 // x^14+x^12+x^11+x^10+x^9+x^7+x^4+x^3+1
@@ -359,9 +359,9 @@ int main() {
 // x^14+x^13+x^12+x^11+x^10+x^9+x^6+x^5+1
 
     // Degree 15
-    //GF *gf = new GF(0x8003);    // x^15+x^1+1
-    //GF *gf = new GF(0x8011);    // x^15+x^4+1
-// x^15+x^7+1
+    //GF *gf = new GFSmall(0x8003);   // x^15+x^1+1
+    //GF *gf = new GFSmall(0x8011);   // x^15+x^4+1
+    //GF *gf = new GFSmall(0x8081);   // x^15+x^7+1
 // x^15+x^7+x^6+x^3+x^2+x^1+1
 // x^15+x^10+x^5+x^1+1
 // x^15+x^10+x^5+x^4+1
@@ -375,9 +375,9 @@ int main() {
 // x^15+x^14+x^13+x^12+x^11+x^10+x^9+x^8+x^7+x^6+x^5+x^4+x^3+x^2+1
 
     // Degree 16
-    //GF *gf2 = new GF(0x103DD);   // x^16+x^9+x^8+x^7+x^6+x^4+x^3+x^2+1   -> has D8, D4
-    //GF *gf2 = new GF(0x1100B);   // x^16+x^12+x^3+x^1+1
-    //GF *gf = new GF(0x11085);   // x^16+x^12+x^7+x^2+1
+    //GF *gf = new GFSmall(0x103DD);  // x^16+x^9+x^8+x^7+x^6+x^4+x^3+x^2+1
+    //GF *gf = new GFSmall(0x1100B);  // x^16+x^12+x^3+x^1+1
+    //GF *gf = new GFSmall(0x11085);  // x^16+x^12+x^7+x^2+1
 // x^16+x^13+x^12+x^10+x^9+x^7+x^6+x^1+1
 // x^16+x^13+x^12+x^11+x^7+x^6+x^3+x^1+1
 // x^16+x^13+x^12+x^11+x^10+x^6+x^2+x^1+1
