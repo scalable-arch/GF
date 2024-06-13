@@ -268,6 +268,9 @@ bool check_degree8_polynomial(gf_binary a, GF *gf)
 }
 
 int main() {
+    // Irreducible polynomial list
+    // https://www.partow.net/programming/polynomials/index.html
+
     // Degree 2
     //GF *gf = new GF(0x7);     // x^2+x^1+1
 
@@ -292,8 +295,8 @@ int main() {
     //GF *gf2 = new GF(0x1E7);   // x^8+x^7+x^6+x^5+x^2+x^1+1   --> Found D4
 
     // Degree 11
-    //GF *gf = new GFSmall(0x805);    // x^11+x^2+1
-    GF *gf = new GFSmall(0x82b);    //x^11+x^5+x^3+x^1+1
+    GF *gf = new GFSmall(0x805);    // x^11+x^2+1
+    //GF *gf = new GFSmall(0x82b);    //x^11+x^5+x^3+x^1+1
     //x^11+x^5+x^3+x^2+1
     //x^11+x^6+x^5+x^1+1
     //x^11+x^7+x^3+x^2+1
@@ -407,7 +410,7 @@ int main() {
 
     int cnt_per_bit[64] = {0};
 
-    for (gf_index i=0; i<gf->getSize(); i+=7)
+    for (gf_index i=0; i<gf->getSize(); i+=8)
     {
         gf_binary binary = gf->get_binary(i);;
         printf("a^%-3lld ", i);
