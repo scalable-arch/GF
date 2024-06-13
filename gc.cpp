@@ -295,7 +295,7 @@ int main() {
     //GF *gf = new GFSmall(0x1E7);    // x^8+x^7+x^6+x^5+x^2+x^1+1   --> Found D4
 
     // Degree 11
-    //GF *gf = new GFSmall(0x805);    // x^11+x^2+1
+    GF *gf = new GFSmall(0x805);    // x^11+x^2+1
     //GF *gf = new GFSmall(0x82b);    // x^11+x^5+x^3+x^1+1
     //GF *gf = new GFSmall(0x82d);    // x^11+x^5+x^3+x^2+1
     //GF *gf = new GFSmall(0x863);    // x^11+x^6+x^5+x^1+1
@@ -410,7 +410,7 @@ int main() {
 
     int cnt_per_bit[64] = {0};
 
-    for (gf_index i=0; i<gf->getSize(); i+=8)
+    for (gf_index i=0; i<gf->getSize(); i+=6)
     {
         gf_binary binary = gf->get_binary(i);;
         printf("a^%-3lld ", i);
