@@ -478,12 +478,17 @@ int main() {
     {
         GFSmall *gf = new GFSmall(poly);
 
-        for (unsigned long long error = 1ull; error <= 1ull<<8; error++)
+        for (unsigned long long x = 1ull; x <= 16ull; x++)
         {
-            gf_binary result = gf->mul(error, 0x101ull);
-            if ((result&0xFF00ull)==0ull) {
-                printf("Error\n");
-                printf("%llx\n", result);
+            printf("AAA: %llu\n", x);
+
+            for (unsigned long long error = 1ull; error <= 1ull<<8; error++)
+            {
+                gf_binary result = gf->mul(error, x);
+                if ((result&0xFF00ull)==0ull) {
+                    printf("Error\n");
+                    printf("%llx\n", result);
+                }
             }
         }
 
