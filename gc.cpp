@@ -2,10 +2,13 @@
 #include <string.h>
 #include <cassert>
 #include <cstdio>
+#include <climits>
 #include <iostream>
 
 typedef unsigned long long      gf_binary;
 typedef unsigned long long      gf_index;
+
+using namespace std;
 
 class GF
 {
@@ -79,7 +82,9 @@ public:
     GFSmall(unsigned long long primitive_poly): GF(primitive_poly)
     {
         log_table       = (gf_index *) malloc(sizeof(gf_index)*size);
+        if (log_table==NULL) cout << "Malloc Failure" << endl;
         exp_table       = (gf_binary *) malloc(sizeof(gf_binary)*size);
+        if (exp_table==NULL) cout << "Malloc Failure" << endl;
 
         generate_table();
 
@@ -132,13 +137,13 @@ public:
         printf("Index : Binary\n");
         for (unsigned long long i=0; i<size; i++) {
             printf("%4llu:%4llx    ", i, exp_table[i]);
-            if (i%4==3) { printf("\n"); }
+            if (i%8==7) { printf("\n"); }
         }
 
         printf("Binary : Index\n");
         for (unsigned long long i=0; i<size; i++) {
             printf("%4llx:%4llu    ", i, log_table[i]);
-            if (i%4==3) { printf("\n"); }
+            if (i%8==7) { printf("\n"); }
         }
     }
 
@@ -150,9 +155,10 @@ private:
             exp_table[i] = x;
             log_table[x] = i;
             //printf("%-8lld: %llX\n", i, x);
-            x = ((x << 1) ^ (x & (1<<(degree-1)) ? primitive_poly: 0)) & (size-1);
+            x = ((x << 1) ^ (x & (1ull<<(degree-1)) ? primitive_poly: 0)) & (size-1);
         }
         exp_table[size-1] = exp_table[0]; // Circular list for exp_table
+        log_table[0] = 0ull;
     }
 
     bool check_table()
@@ -161,6 +167,7 @@ private:
         bool visited_all = true;
 
         visited_array = (char *)malloc(size * sizeof(char));
+        if (visited_array==NULL) cout << "Malloc Failure" << endl;
         memset(visited_array, 0, size * sizeof(char));
 
         for (gf_binary i=0; i<size; i++)
@@ -265,6 +272,62 @@ bool check_degree8_polynomial(gf_binary a, GF *gf)
     result = gf->add(result, gf->pow(a, 2));
     result = gf->add(result, 1);
     return (result==0);
+}
+
+void check_xors(GF *gf, int chip_cnt)
+{
+    int cnt_per_bit[64] = {0};
+
+    for (gf_index i=0; i<gf->getSize(); i+=chip_cnt)
+    {
+        gf_binary binary = gf->get_binary(i);;
+        printf("a^%-3lld ", i);
+
+        for (int i=gf->getDegree()-1; i>=0; i--)
+        {
+            if ((binary>>i)&1) {
+                printf("1");
+                cnt_per_bit[i]++;
+            }
+            else
+            {
+                printf("0");
+            }
+            if (((i%4)==0) && (i!=0)) {
+                printf("_");
+            }
+        }
+        printf("\n");
+    }
+
+    int min = INT_MAX;
+    for (int i=gf->getDegree()-1; i>=0; i--)
+    {
+        if (cnt_per_bit[i]<min) {
+            min = cnt_per_bit[i];
+        }
+    }
+    printf("Min.: %5d (", min);
+    for (int i=gf->getDegree()-1; i>=0; i--)
+    {
+        printf("%5d ", cnt_per_bit[i]);
+    }
+    printf(")\n");
+
+    for (int i=gf->getDegree()-1; i>=0; i--)
+    {
+        if ((cnt_per_bit[i]%2)==1) {
+            printf("1");
+        }
+        else
+        {
+            printf("0");
+        }
+        if (((i%4)==0) && (i!=0)) {
+            printf("_");
+        }
+    }
+    printf("\n");
 }
 
 int main() {
@@ -405,53 +468,27 @@ int main() {
     gf2->print();
     */
 
-    gf->print();
+    //unsigned long long irreducible_polys[] = {0x43, 0x67, 0x6D};    // GF(2^6)
+    //unsigned long long irreducible_polys[] = {0x11D, 0x12B, 0x15F, 0x163, 0x165, 0x169, 0x1E7}; // GF(2^8)
+    //unsigned long long irreducible_polys[] = {0x805, 0x82b, 0x82d, 0x863, 0x88d, 0x925, 0x973, 0x97F, 0xA13, 0xB93, 0xC0D, 0xDBB, 0xF0B};  // GF(2^11)
+    //unsigned long long irreducible_polys[] = {0x1053, 0x120D, 0x130F, 0x1745, 0x1775, 0x1857, 0x1A2B, 0x1AD1, 0x1AE1, 0x1B91, 0x1BA7, 0x1C27, 0x1D5B, 0x1FBB};    // GF(2^12)
+    unsigned long long irreducible_polys[] = {0x1053};
 
-
-    int cnt_per_bit[64] = {0};
-
-    for (gf_index i=0; i<gf->getSize(); i+=8)
+    for (unsigned long long poly : irreducible_polys)
     {
-        gf_binary binary = gf->get_binary(i);;
-        printf("a^%-3lld ", i);
+        GFSmall *gf = new GFSmall(poly);
 
-        for (int i=gf->getDegree()-1; i>=0; i--)
+        for (unsigned long long error = 1ull; error <= 1ull<<8; error++)
         {
-            if ((binary>>i)&1) {
-                printf("1");
-                cnt_per_bit[i]++;
-            }
-            else
-            {
-                printf("0");
-            }
-            if (((i%4)==0) && (i!=0)) {
-                printf("_");
+            gf_binary result = gf->mul(error, 0x101ull);
+            if ((result&0xFF00ull)==0ull) {
+                printf("Error\n");
+                printf("%llx\n", result);
             }
         }
-        printf("\n");
-    }
 
-    for (int i=gf->getDegree()-1; i>=0; i--)
-    {
-        printf("%10d ", cnt_per_bit[i]);
+        //gf->print();
     }
-    printf("\n");
-
-    for (int i=gf->getDegree()-1; i>=0; i--)
-    {
-        if ((cnt_per_bit[i]%2)==1) {
-            printf("1");
-        }
-        else
-        {
-            printf("0");
-        }
-        if (((i%4)==0) && (i!=0)) {
-            printf("_");
-        }
-    }
-    printf("\n");
 /*
     gf_binary received[8];
     gf_binary syndrome[2];
