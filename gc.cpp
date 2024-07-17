@@ -136,14 +136,16 @@ public:
 
         printf("Index : Binary\n");
         for (unsigned long long i=0; i<size; i++) {
-            printf("%4llu:%4llx    ", i, exp_table[i]);
-            if (i%8==7) { printf("\n"); }
+            printf("%6llu:%6llx ", i, exp_table[i]);
+            //if (i%8==7) { printf("\n"); }
+            if (i%10==9) { printf("\n"); }
         }
 
         printf("Binary : Index\n");
         for (unsigned long long i=0; i<size; i++) {
-            printf("%4llx:%4llu    ", i, log_table[i]);
-            if (i%8==7) { printf("\n"); }
+            printf("%6llx:%6llu ", i, log_table[i]);
+            //if (i%8==7) { printf("\n"); }
+            if (i%10==9) { printf("\n"); }
         }
     }
 
@@ -238,19 +240,19 @@ void generate_syndromes(GF *gf)
     printf("1st chip\n");
     for (e=1; e<16; e++)
     {
-        printf("%4llx ", gf->mul(e, 1));
+        printf("%6llx ", gf->mul(e, 1));
     }
     printf("\n");
     printf("2nd chip\n");
     for (e=1; e<16; e++)
     {
-        printf("%4llx ", gf->mul(e, 2));
+        printf("%6llx ", gf->mul(e, 2));
     }
     printf("\n");
     printf("3rd chip\n");
     for (e=1; e<16; e++)
     {
-        printf("%4llx ", gf->mul(e, 4));
+        printf("%6llx ", gf->mul(e, 4));
     }
     printf("\n");
 }
@@ -307,10 +309,10 @@ void check_xors(GF *gf, int chip_cnt)
             min = cnt_per_bit[i];
         }
     }
-    printf("Min.: %5d (", min);
+    printf("Min.: %6d (", min);
     for (int i=gf->getDegree()-1; i>=0; i--)
     {
-        printf("%5d ", cnt_per_bit[i]);
+        printf("%6d ", cnt_per_bit[i]);
     }
     printf(")\n");
 
@@ -343,10 +345,26 @@ int main() {
     // Degree 4
     //GF *gf = new GFSmall(0x13);     // x^4+x^1+1
 
+    // Degree 5
+    //GF *gf = new GFSmall(0x25);     // x^5+x^2+1
+    //GF *gf = new GFSmall(0x37);     // x^5+x^4+x^2+x^1+1
+    //GF *gf = new GFSmall(0x3D);     // x^5+x^4+x^3+x^2+1
+
     // Degree 6
     //GF *gf = new GFSmall(0x43);     // x^6+x^1+1
     //GF *gf = new GFSmall(0x67);     // x^6+x^5+x^2+x^1+1
     //GF *gf = new GFSmall(0x6D);     // x^6+x^5+x^3+x^2+1
+
+    // Degree 7
+    //GF *gf = new GFSmall(0x83);     // x^7+x^1+1
+    //GF *gf = new GFSmall(0x89);     // x^7+x^3+1
+    //GF *gf = new GFSmall(0x8F);     // x^7+x^3+x^2+x^1+1
+    //GF *gf = new GFSmall(0x9D);     // x^7+x^4+x^3+x^2+1
+    //GF *gf = new GFSmall(0xBF);     // x^7+x^5+x^4+x^3+x^2+x^1+1
+    //GF *gf = new GFSmall(0xCB);     // x^7+x^6+x^3+x^1+1
+    //GF *gf = new GFSmall(0xD5);     // x^7+x^6+x^4+x^2+1
+    //GF *gf = new GFSmall(0xE5);     // x^7+x^6+x^5+x^2+1
+    //GF *gf = new GFSmall(0xF7);     // x^7+x^6+x^5+x^4+x^2+x^1+1
 
     // Degree 8
     //GF *gf = new GFSmall(0x11D);    // x^8+x^4+x^3+x^2+1   --> Found D4
@@ -411,70 +429,86 @@ int main() {
     //GF *gf = new GFSmall(0x46DB);   // x^14+x^10+x^9+x^7+x^6+x^4+x^3+x^1+1
     //GF *gf = new GFSmall(0x4843);   // x^14+x^11+x^6+x^1+1
     //GF *gf = new GFSmall(0x4A65);   // x^14+x^11+x^9+x^6+x^5+x^2+1
-// x^14+x^12+x^9+x^8+x^7+x^6+x^5+x^4+1
-// x^14+x^12+x^11+x^9+x^8+x^7+x^6+x^5+x^3+x^1+1
-// x^14+x^12+x^11+x^10+x^9+x^7+x^4+x^3+1
-// x^14+x^13+x^6+x^5+x^3+x^1+1
-// x^14+x^13+x^10+x^8+x^7+x^5+x^4+x^3+x^2+x^1+1
-// x^14+x^13+x^11+x^6+x^5+x^4+x^2+x^1+1
-// x^14+x^13+x^11+x^8+x^5+x^3+x^2+x^1+1
-// x^14+x^13+x^12+x^11+x^10+x^7+x^6+x^1+1
-// x^14+x^13+x^12+x^11+x^10+x^9+x^6+x^5+1
+    //GF *gf = new GFSmall(0x53F1);   // x^14+x^12+x^9+x^8+x^7+x^6+x^5+x^4+1
+    //GF *gf = new GFSmall(0x5BEB);   // x^14+x^12+x^11+x^9+x^8+x^7+x^6+x^5+x^3+x^1+1
+    //GF *gf = new GFSmall(0x5E99);   // x^14+x^12+x^11+x^10+x^9+x^7+x^4+x^3+1
+    //GF *gf = new GFSmall(0x606B);   // x^14+x^13+x^6+x^5+x^3+x^1+1
+    //GF *gf = new GFSmall(0x65BF);   // x^14+x^13+x^10+x^8+x^7+x^5+x^4+x^3+x^2+x^1+1
+    //GF *gf = new GFSmall(0x6877);   // x^14+x^13+x^11+x^6+x^5+x^4+x^2+x^1+1
+    //GF *gf = new GFSmall(0x692F);   // x^14+x^13+x^11+x^8+x^5+x^3+x^2+x^1+1
+    //GF *gf = new GFSmall(0x7CC3);   // x^14+x^13+x^12+x^11+x^10+x^7+x^6+x^1+1
+    //GF *gf = new GFSmall(0x7E61);   // x^14+x^13+x^12+x^11+x^10+x^9+x^6+x^5+1
 
     // Degree 15
     //GF *gf = new GFSmall(0x8003);   // x^15+x^1+1
     //GF *gf = new GFSmall(0x8011);   // x^15+x^4+1
     //GF *gf = new GFSmall(0x8081);   // x^15+x^7+1
-// x^15+x^7+x^6+x^3+x^2+x^1+1
-// x^15+x^10+x^5+x^1+1
-// x^15+x^10+x^5+x^4+1
-// x^15+x^10+x^5+x^4+x^2+x^1+1
-// x^15+x^10+x^9+x^7+x^5+x^3+1
-// x^15+x^10+x^9+x^8+x^5+x^3+1
-// x^15+x^11+x^7+x^6+x^2+x^1+1
-// x^15+x^12+x^3+x^1+1
-// x^15+x^12+x^5+x^4+x^3+x^2+1
-// x^15+x^12+x^11+x^8+x^7+x^6+x^4+x^2+1
-// x^15+x^14+x^13+x^12+x^11+x^10+x^9+x^8+x^7+x^6+x^5+x^4+x^3+x^2+1
+    //GF *gf = new GFSmall(0x80CF);   // x^15+x^7+x^6+x^3+x^2+x^1+1
+    //GF *gf = new GFSmall(0x8423);   // x^15+x^10+x^5+x^1+1
+    //GF *gf = new GFSmall(0x8431);   // x^15+x^10+x^5+x^4+1
+    //GF *gf = new GFSmall(0x8437);   // x^15+x^10+x^5+x^4+x^2+x^1+1
+    //GF *gf = new GFSmall(0x86A9);   // x^15+x^10+x^9+x^7+x^5+x^3+1
+    //GF *gf = new GFSmall(0x8729);   // x^15+x^10+x^9+x^8+x^5+x^3+1
+    //GF *gf = new GFSmall(0x88C7);   // x^15+x^11+x^7+x^6+x^2+x^1+1
+    //GF *gf = new GFSmall(0x900B);   // x^15+x^12+x^3+x^1+1
+    //GF *gf = new GFSmall(0x903D);   // x^15+x^12+x^5+x^4+x^3+x^2+1
+    //GF *gf = new GFSmall(0x99D5);   // x^15+x^12+x^11+x^8+x^7+x^6+x^4+x^2+1
+    //GF *gf = new GFSmall(0xFFFD);    // x^15+x^14+x^13+x^12+x^11+x^10+x^9+x^8+x^7+x^6+x^5+x^4+x^3+x^2+1
 
     // Degree 16
     //GF *gf = new GFSmall(0x103DD);  // x^16+x^9+x^8+x^7+x^6+x^4+x^3+x^2+1
     //GF *gf = new GFSmall(0x1100B);  // x^16+x^12+x^3+x^1+1
     //GF *gf = new GFSmall(0x11085);  // x^16+x^12+x^7+x^2+1
-// x^16+x^13+x^12+x^10+x^9+x^7+x^6+x^1+1
-// x^16+x^13+x^12+x^11+x^7+x^6+x^3+x^1+1
-// x^16+x^13+x^12+x^11+x^10+x^6+x^2+x^1+1
-// x^16+x^14+x^10+x^8+x^3+x^1+1
-// x^16+x^14+x^13+x^12+x^6+x^5+x^3+x^2+1
-// x^16+x^14+x^13+x^12+x^10+x^7+1
-// x^16+x^15+x^10+x^6+x^5+x^3+x^2+x^1+1
-// x^16+x^15+x^11+x^9+x^8+x^7+x^5+x^4+x^2+x^1+1
-// x^16+x^15+x^11+x^10+x^7+x^6+x^5+x^3+x^2+x^1+1
-// x^16+x^15+x^11+x^10+x^9+x^6+x^2+x^1+1
-// x^16+x^15+x^11+x^10+x^9+x^8+x^6+x^4+x^2+x^1+1
-
+    //GF *gf = new GFSmall(0x136C3);  // x^16+x^13+x^12+x^10+x^9+x^7+x^6+x^1+1
+    //GF *gf = new GFSmall(0x138CB);  // x^16+x^13+x^12+x^11+x^7+x^6+x^3+x^1+1
+    //GF *gf = new GFSmall(0x13C47);  // x^16+x^13+x^12+x^11+x^10+x^6+x^2+x^1+1
+    //GF *gf = new GFSmall(0x1450B);  // x^16+x^14+x^10+x^8+x^3+x^1+1
+    //GF *gf = new GFSmall(0x1706D);  // x^16+x^14+x^13+x^12+x^6+x^5+x^3+x^2+1
+    //GF *gf = new GFSmall(0x17481);  // x^16+x^14+x^13+x^12+x^10+x^7+1
+    //GF *gf = new GFSmall(0x1846F);  // x^16+x^15+x^10+x^6+x^5+x^3+x^2+x^1+1
+    //GF *gf = new GFSmall(0x18BB7);  // x^16+x^15+x^11+x^9+x^8+x^7+x^5+x^4+x^2+x^1+1
+    //GF *gf = new GFSmall(0x18CEF);  // x^16+x^15+x^11+x^10+x^7+x^6+x^5+x^3+x^2+x^1+1
+    //GF *gf = new GFSmall(0x18E47);  // x^16+x^15+x^11+x^10+x^9+x^6+x^2+x^1+1
+    //GF *gf = new GFSmall(0x18F57);  // x^16+x^15+x^11+x^10+x^9+x^8+x^6+x^4+x^2+x^1+1
 
     // Degree 32
     //GF *gf = new GFBig(0x100400007ull);    //x^32+x^22+x^2+x^1+1
-    //GF *gf = new GF(0x10076B553ull);    // x^32+x^22+x^21+x^20+x^18+x^17+x^15+x^13+x^12+x^10+x^8+x^6+x^4+x^1+1
-    //GF *gf = new GF(0x1008345E9ull);    // x^32+x^23+x^17+x^16+x^14+x^10+x^8+x^7+x^6+x^5+x^3+1
-    //GF *gf = new GF(0x104C11BB7ull);    // x^32+x^26+x^23+x^22+x^16+x^12+x^11+x^10+x^8+x^7+x^5+x^4+x^2+x^1+1
-    //GF *gf = new GF(0x10FC22F86ull);    // x^32+x^27+x^26+x^25+x^24+x^23+x^22+x^17+x^13+x^11+x^10+x^9+x^8+x^7+x^2+x^1+1
-    //GF *gf = new GF(0x1100D4E63ull);    // x^32+x^28+x^19+x^18+x^16+x^14+x^11+x^10+x^9+x^6+x^5+x^1+1
+    //GF *gf = new GFBig(0x10076B553ull);    // x^32+x^22+x^21+x^20+x^18+x^17+x^15+x^13+x^12+x^10+x^8+x^6+x^4+x^1+1
+    //GF *gf = new GFBig(0x1008345E9ull);    // x^32+x^23+x^17+x^16+x^14+x^10+x^8+x^7+x^6+x^5+x^3+1
+    //GF *gf = new GFBig(0x104C11BB7ull);    // x^32+x^26+x^23+x^22+x^16+x^12+x^11+x^10+x^8+x^7+x^5+x^4+x^2+x^1+1
+    //GF *gf = new GFBig(0x10FC22F86ull);    // x^32+x^27+x^26+x^25+x^24+x^23+x^22+x^17+x^13+x^11+x^10+x^9+x^8+x^7+x^2+x^1+1
+    //GF *gf = new GFBig(0x1100D4E63ull);    // x^32+x^28+x^19+x^18+x^16+x^14+x^11+x^10+x^9+x^6+x^5+x^1+1
 
-    /*
-    gf2->hasRoot(gf);
-    gf->print();
-    gf2->print();
-    */
+    // Degree 2
+    //unsigned long long polys[] = {0x7};
+    // Degree 3
+    //unsigned long long polys[] = {0xb};
+    // Degree 4
+    //unsigned long long polys[] = {0x13};
+    // Degree 5
+    //unsigned long long polys[] = {0x25, 0x37, 0x3D};
+    // Degree 6
+    //unsigned long long polys[] = {0x43, 0x67, 0x6D};
+    // Degree 7
+    //unsigned long long polys[] = {0x83, 0x89, 0x8F, 0x9D, 0xBF, 0xCB, 0xD5, 0xE5, 0xF7};
+    // Degree 8
+    //unsigned long long polys[] = {0x11D, 0x12B, 0x15F, 0x163, 0x165, 0x169, 0x1E7};
+    // Degree 11
+    //unsigned long long polys[] = {0x805, 0x82b, 0x82d, 0x863, 0x88d, 0x925, 0x973, 0x97F, 0xA13, 0xB93, 0xC0D, 0xDBB, 0xF0B};
+    // Degree 12
+    //unsigned long long polys[] = {0x1053, 0x120D, 0x130F, 0x1745, 0x1775, 0x1857, 0x1A2B, 0x1AD1, 0x1AE1, 0x1B91, 0x1BA7, 0x1C27, 0x1D5B, 0x1FBB};
+    // Degree 13
+    //unsigned long long polys[] = {0x201B, 0x22BF, 0x23A3, 0x26B1, 0x274F, 0x2993, 0x2FFF, 0x3079, 0x31E1, 0x3315, 0x355D, 0x3827, 0x39D3};
+    // Degree 14
+    //unsigned long long polys[] = {0x4143, 0x4443, 0x46DB, 0x4843, 0x4A65, 0x53F1, 0x5BEB, 0x5E99, 0x606B, 0x65BF, 0x6877, 0x692F, 0x7CC3, 0x7E61};
+    // Degree 15
+    //unsigned long long polys[] = {0x8003, 0x8011, 0x8081, 0x80CF, 0x8423, 0x8431, 0x8437, 0x86A9, 0x8729, 0x88C7, 0x900B, 0x903D, 0x99D5, 0xFFFD};
+    // Degree 16
+    //unsigned long long polys[] = {0x103DD, 0x1100B, 0x11085, 0x136C3, 0x138CB, 0x13C47, 0x1450B, 0x1706D, 0x17481, 0x1846F, 0x18BB7, 0x18CEF, 0x18E47, 0x18F57};
 
-    //unsigned long long irreducible_polys[] = {0x43, 0x67, 0x6D};    // GF(2^6)
-    //unsigned long long irreducible_polys[] = {0x11D, 0x12B, 0x15F, 0x163, 0x165, 0x169, 0x1E7}; // GF(2^8)
-    //unsigned long long irreducible_polys[] = {0x805, 0x82b, 0x82d, 0x863, 0x88d, 0x925, 0x973, 0x97F, 0xA13, 0xB93, 0xC0D, 0xDBB, 0xF0B};  // GF(2^11)
-    //unsigned long long irreducible_polys[] = {0x1053, 0x120D, 0x130F, 0x1745, 0x1775, 0x1857, 0x1A2B, 0x1AD1, 0x1AE1, 0x1B91, 0x1BA7, 0x1C27, 0x1D5B, 0x1FBB};    // GF(2^12)
-    unsigned long long irreducible_polys[] = {0x1053};
+    unsigned long long polys[] = {0x805};   // Degree 11
 
-    for (unsigned long long poly : irreducible_polys)
+    for (unsigned long long poly : polys)
     {
         GFSmall *gf = new GFSmall(poly);
 
@@ -486,13 +520,12 @@ int main() {
             {
                 gf_binary result = gf->mul(error, x);
                 if ((result&0xFF00ull)==0ull) {
-                    printf("Error\n");
-                    printf("%llx\n", result);
+                    printf("Error: %llx\n", result);
                 }
             }
         }
 
-        //gf->print();
+        gf->print();
     }
 /*
     gf_binary received[8];
