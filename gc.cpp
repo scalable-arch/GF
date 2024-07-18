@@ -49,8 +49,9 @@ public:
         return result;
     }
 
-    void hasRoot(GF *gf)
+    bool hasRoot(GF *gf)
     {
+        bool result = false;
         for (unsigned long long a=1; a<gf->getSize(); a++) {
             gf_binary result = 1;
             for (unsigned long long i=63; i>0; i--)
@@ -60,15 +61,16 @@ public:
                 }
             }
             if (result==0) {
-                //printf("Found!: %#6llx\n", a);
-                std::cout << "Found!: %#6llx" << a << std::endl;
+                printf("Found!: %#6llx\n", a);
+                result = true;
             }
             if ((a%1000000)==999999)
             {
                 //printf("Processing %lld\n", a);
-                std::cout << "Processing %lld" << a << std::endl;
+                std::cout << "Processing " << a << std::endl;
             }
         }
+        return result;
     }
 public:
     int                 degree;
@@ -136,16 +138,16 @@ public:
 
         printf("Index : Binary\n");
         for (unsigned long long i=0; i<size; i++) {
-            printf("%6llu:%6llx ", i, exp_table[i]);
+            printf("%6llu:%6llx", i, exp_table[i]);
             //if (i%8==7) { printf("\n"); }
-            if (i%10==9) { printf("\n"); }
+            if (i%16==15) { printf("\n"); }
         }
 
         printf("Binary : Index\n");
         for (unsigned long long i=0; i<size; i++) {
-            printf("%6llx:%6llu ", i, log_table[i]);
+            printf("%6llx:%6llu", i, log_table[i]);
             //if (i%8==7) { printf("\n"); }
-            if (i%10==9) { printf("\n"); }
+            if (i%16==15) { printf("\n"); }
         }
     }
 
@@ -506,12 +508,39 @@ int main() {
     // Degree 16
     //unsigned long long polys[] = {0x103DD, 0x1100B, 0x11085, 0x136C3, 0x138CB, 0x13C47, 0x1450B, 0x1706D, 0x17481, 0x1846F, 0x18BB7, 0x18CEF, 0x18E47, 0x18F57};
 
-    unsigned long long polys[] = {0x805};   // Degree 11
+    //unsigned long long polys[] = {0x11D, 0x12B, 0x15F, 0x163, 0x165, 0x169, 0x1E7};    // Degree 8
+    //unsigned long long polys[] = {0x805};   // Degree 11
+    //unsigned long long polys[] = {0x1053};  // Degree 12
+    //unsigned long long polys[] = {0x1053, 0x120D, 0x130F, 0x1745, 0x1775, 0x1857, 0x1A2B, 0x1AD1, 0x1AE1, 0x1B91, 0x1BA7, 0x1C27, 0x1D5B, 0x1FBB};  // Degree 12
+    unsigned long long polys[] = {0x103DD}; // Degree 16
+    //unsigned long long polys[] = {0x805, 0x82b, 0x82d, 0x863, 0x88d, 0x925, 0x973, 0x97F, 0xA13, 0xB93, 0xC0D, 0xDBB, 0xF0B};
+    // Degree 12
+    //unsigned long long polys[] = {0x1053, 0x120D, 0x130F, 0x1745, 0x1775, 0x1857, 0x1A2B, 0x1AD1, 0x1AE1, 0x1B91, 0x1BA7, 0x1C27, 0x1D5B, 0x1FBB};
+    // Degree 13
+    //unsigned long long polys[] = {0x201B, 0x22BF, 0x23A3, 0x26B1, 0x274F, 0x2993, 0x2FFF, 0x3079, 0x31E1, 0x3315, 0x355D, 0x3827, 0x39D3};
+    // Degree 14
+    //unsigned long long polys[] = {0x4143, 0x4443, 0x46DB, 0x4843, 0x4A65, 0x53F1, 0x5BEB, 0x5E99, 0x606B, 0x65BF, 0x6877, 0x692F, 0x7CC3, 0x7E61};
+    // Degree 15
+    //unsigned long long polys[] = {0x8003, 0x8011, 0x8081, 0x80CF, 0x8423, 0x8431, 0x8437, 0x86A9, 0x8729, 0x88C7, 0x900B, 0x903D, 0x99D5, 0xFFFD};
+
+    //unsigned long long polys2[] = {0x13}; // Degree 4
+    unsigned long long polys2[] = {0x11D, 0x12B, 0x15F, 0x163, 0x165, 0x169, 0x1E7};    // Degree 8
 
     for (unsigned long long poly : polys)
     {
         GFSmall *gf = new GFSmall(poly);
 
+        for (unsigned long long poly2: polys2)
+        {
+            GFSmall *gf2 = new GFSmall(poly2);
+
+            bool result = gf2->hasRoot(gf);
+            if (result) {
+                gf->print();
+                gf2->print();
+            }
+        }
+        /*
         for (unsigned long long x = 1ull; x <= 16ull; x++)
         {
             printf("AAA: %llu\n", x);
@@ -524,8 +553,8 @@ int main() {
                 }
             }
         }
-
         gf->print();
+        */
     }
 /*
     gf_binary received[8];
